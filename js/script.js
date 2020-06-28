@@ -23,8 +23,22 @@ function startVideo(){
 }
 
 Promise.all([
-	faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-	faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+	//faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+    //faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+
+    faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+    faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+    faceapi.nets.faceExpressionNet.loadFromUri("/models"),
+    faceapi.nets.ageGenderNet.loadFromUri("/models")
+
+    // faceapi.loadSsdMobilenetv1Model('/models'),
+    // faceapi.loadTinyFaceDetectorModel('/models'),
+    // faceapi.loadMtcnnModel('/models'),
+    // faceapi.loadFaceLandmarkModel('/models'),
+    // faceapi.loadFaceLandmarkTinyModel('/models'),
+    // faceapi.loadFaceRecognitionModel('/models'),
+    // faceapi.loadFaceExpressionModel('/models')
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
@@ -36,11 +50,20 @@ function showExpression({ expressions }) {
 }
 
 async function detectFace() {
-	const options = new faceapi.TinyFaceDetectorOptions();
+    const options = new faceapi.TinyFaceDetectorOptions();
+ 
 	faceapi.matchDimensions(canvas, displaySize);
 
 	setInterval(async () => {
-		const detections = await faceapi.detectAllFaces(video, options).withFaceExpressions();
+
+       var detects = await faceapi.detectSingleFace(video,options)
+       .withFaceLandmarks()
+       .withFaceExpressions()
+       .withAgeAndGender();
+
+       console.log(detects);
+
+        const detections = await faceapi.detectAllFaces(video, options).withFaceExpressions();
         const resizedDetections = faceapi.resizeResults(detections, displaySize);
 		canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 		faceapi.draw.drawDetections(canvas, resizedDetections);
