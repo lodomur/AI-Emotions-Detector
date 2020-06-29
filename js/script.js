@@ -25,11 +25,11 @@ function startVideo(){
 }
 
 Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/"),
-    faceapi.nets.faceLandmark68Net.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/"),
-    faceapi.nets.faceRecognitionNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/"),
-    faceapi.nets.faceExpressionNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/"),
-    faceapi.nets.ageGenderNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/")
+    faceapi.nets.tinyFaceDetector.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/tiny_face_detector_model-weights_manifest.json"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/face_landmark_68_model-weights_manifest.json"),
+    faceapi.nets.faceRecognitionNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/face_recognition_model-weights_manifest.json"),
+    faceapi.nets.faceExpressionNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/face_expression_model-weights_manifest.json"),
+    faceapi.nets.ageGenderNet.loadFromUri("https://lodomur.github.io/AI-Emotions-Detector/models/age_gender_model-weights_manifest.json")
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
