@@ -23,13 +23,13 @@ function startVideo(){
         }, (err) => console.error(err)
     );
 }
-
+ 
 Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri("~/models/"),
-    faceapi.nets.faceLandmark68Net.loadFromUri("~/models/"),
-    faceapi.nets.faceRecognitionNet.loadFromUri("~/models/"),
-    faceapi.nets.faceExpressionNet.loadFromUri("~/models/"),
-    faceapi.nets.ageGenderNet.loadFromUri("~/models/")
+    faceapi.nets.tinyFaceDetector.loadFromUri("/blob/master/models/"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("/blob/master/models/"),
+    faceapi.nets.faceRecognitionNet.loadFromUri("/blob/master/models/"),
+    faceapi.nets.faceExpressionNet.loadFromUri("/blob/master/models/"),
+    faceapi.nets.ageGenderNet.loadFromUri("/blob/master/models/")
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
