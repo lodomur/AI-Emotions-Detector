@@ -9,7 +9,7 @@ var displaySize = { width: video.width, height: video.height};
 const emotions = {
 	'neutral': 'Нейтральний 😐',
 	'surprised': 'Здивована 😮',
-	'disgusted': 'Неподобається щось',
+	'disgusted': 'Неподобається щось 😒',
 	'fearful': 'Наляканий 😨',
 	'sad': 'Засмучений 🙁',
 	'angry': 'Злий 😠',
