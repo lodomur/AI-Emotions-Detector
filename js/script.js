@@ -25,11 +25,11 @@ function startVideo(){
 }
  
 Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri("/blob/master/models/"),
-    faceapi.nets.faceLandmark68Net.loadFromUri("/blob/master/models/"),
-    faceapi.nets.faceRecognitionNet.loadFromUri("/blob/master/models/"),
-    faceapi.nets.faceExpressionNet.loadFromUri("/blob/master/models/"),
-    faceapi.nets.ageGenderNet.loadFromUri("/blob/master/models/")
+    faceapi.nets.tinyFaceDetector.loadFromUri("/AI-Emotions-Detector/blob/master/models/"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("/AI-Emotions-Detector/blob/master/models/"),
+    faceapi.nets.faceRecognitionNet.loadFromUri("/AI-Emotions-Detector/blob/master/models/"),
+    faceapi.nets.faceExpressionNet.loadFromUri("/AI-Emotions-Detector/blob/master/models/"),
+    faceapi.nets.ageGenderNet.loadFromUri("/AI-Emotions-Detector/blob/master/models/")
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
