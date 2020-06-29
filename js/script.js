@@ -1,6 +1,8 @@
 var video = document.querySelector('.js-video');
 var canvas = document.querySelector('.js-overlay');
-var result = document.querySelector('.js-emotion');
+var emotionText = document.querySelector('.js-emotion');
+var genderText = document.querySelector('.js-gender');
+var ageText = document.querySelector('.js-age');
 
 var displaySize = { width: video.width, height: video.height};
 
@@ -23,22 +25,11 @@ function startVideo(){
 }
 
 Promise.all([
-	//faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-    //faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-
     faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
     faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
     faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
     faceapi.nets.faceExpressionNet.loadFromUri("/models"),
     faceapi.nets.ageGenderNet.loadFromUri("/models")
-
-    // faceapi.loadSsdMobilenetv1Model('/models'),
-    // faceapi.loadTinyFaceDetectorModel('/models'),
-    // faceapi.loadMtcnnModel('/models'),
-    // faceapi.loadFaceLandmarkModel('/models'),
-    // faceapi.loadFaceLandmarkTinyModel('/models'),
-    // faceapi.loadFaceRecognitionModel('/models'),
-    // faceapi.loadFaceExpressionModel('/models')
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
@@ -46,7 +37,15 @@ function showExpression({ expressions }) {
 	const max = arr.reduce((acc, current) => {
 		return acc[1] > current[1] ? acc : current;
 	}, [])
-	result.textContent = emotions[max[0]];
+	emotionText.textContent = emotions[max[0]];
+}
+
+function showAge({age}){
+    ageText.textContent = 'Вік: ' +  Math.round(age);
+}
+
+function showGender({gender}){
+    genderText.textContent = 'Стать: ' + (gender === 'male' ? 'Чоловік' : 'Жінка');
 }
 
 async function detectFace() {
@@ -56,22 +55,23 @@ async function detectFace() {
 
 	setInterval(async () => {
 
-       var detects = await faceapi.detectSingleFace(video,options)
+       const detects = await faceapi.detectSingleFace(video,options)
        .withFaceLandmarks()
        .withFaceExpressions()
        .withAgeAndGender();
 
        console.log(detects);
-
-        const detections = await faceapi.detectAllFaces(video, options).withFaceExpressions();
-        const resizedDetections = faceapi.resizeResults(detections, displaySize);
+        const resizedDetections = faceapi.resizeResults(detects, displaySize);
 		canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 		faceapi.draw.drawDetections(canvas, resizedDetections);
 		
-		if (detections[0]) {
-			showExpression(detections[0])
-		}
-	}, 1000);
+		if (detects) {
+            showExpression(detects);
+            showAge(detects);
+            showGender(detects);
+        }
+        
+	}, 800);
 }
 
 video.addEventListener('play', detectFace);

@@ -12,6 +12,20 @@ video {
 }
 
 .emotion { 
-    top: -100px; 
+    top: -210px; 
+    left: 70px;
     text-shadow: 3px 3px 0 #000; 
 }
+
+.gender { 
+    top: -220px; 
+    left: 70px;
+    text-shadow: 3px 3px 0 #000; 
+}
+
+.age { 
+    top: -230px; 
+    left: 70px;
+    text-shadow: 3px 3px 0 #000; 
+}
+
