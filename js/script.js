@@ -23,13 +23,13 @@ function startVideo(){
         }, (err) => console.error(err)
     );
 }
- 
+ // https://lodomur.github.io/AI-Emotions-Detector/models/face_recognition_model-weights_manifest.json
 Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri("~/models/"),
-    faceapi.nets.faceLandmark68Net.loadFromUri("~/models/"),
-    faceapi.nets.faceRecognitionNet.loadFromUri("~/models/"),
-    faceapi.nets.faceExpressionNet.loadFromUri("~/models/"),
-    faceapi.nets.ageGenderNet.loadFromUri("~/models/")
+    faceapi.nets.tinyFaceDetector.loadFromUri("~/models/".replace("/~","")),
+    faceapi.nets.faceLandmark68Net.loadFromUri("~/models/".replace("/~","")),
+    faceapi.nets.faceRecognitionNet.loadFromUri("~/models/".replace("/~","")),
+    faceapi.nets.faceExpressionNet.loadFromUri("~/models/".replace("/~","")),
+    faceapi.nets.ageGenderNet.loadFromUri("~/models/".replace("/~",""))
 ]).then(startVideo);
 
 function showExpression({ expressions }) {
